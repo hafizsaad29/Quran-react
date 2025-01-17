@@ -1,0 +1,92 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.title {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.surah-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.surah-card {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.surah-card:hover {
+  background-color: #f0f0f0;
+}
+
+.surah-detail {
+  margin-top: 20px;
+}
+
+.translation-options {
+  margin-bottom: 20px;
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.custom-checkbox input {
+  margin-right: 10px;
+}
+
+.ayah-list {
+  margin-top: 20px;
+}
+
+.ayah {
+  margin-bottom: 20px;
+}
+
+.arabic {
+  font-size: 1.5em;
+  font-family: "Noor Ul Huda", sans-serif;
+}
+
+.urdu {
+  font-size: 1.2em;
+  font-family: "Nastaleeq", sans-serif;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #cccccc;
+}
+
+.checkmark {
+  width: 18px;
+  height: 18px;
+  background-color: #eee;
+  display: inline-block;
+  margin-right: 10px;
+}

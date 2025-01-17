@@ -1,38 +1,316 @@
-import React, { useEffect, useState } from "react";
+// import React, { useState, useEffect } from "react";
+// import axios from "axios";
+// import "./App.css";
+
+// const translations = [
+//   { id: "ur.jalandhry", label: "جالندھری" },
+//   // Add more translations here, like:
+//   // { id: "ur.mehmoodulhassan", label: "محمود الحسن" },
+// ];
+
+// const QuranAyahViewer = () => {
+//   const [surahs, setSurahs] = useState([]);
+//   const [selectedSurah, setSelectedSurah] = useState(null);
+//   const [ayahs, setAyahs] = useState([]);
+//   const [currentPage, setCurrentPage] = useState(1);
+//   const [ayahsPerPage] = useState(5);
+//   const [selectedTranslations, setSelectedTranslations] = useState([
+//     "ur.jalandhry",
+//     // Add selected translation IDs here
+//     // "ur.mehmoodulhassan"
+//   ]);
+
+//   const fetchSurahs = async () => {
+//     try {
+//       const response = await axios.get("http://api.alquran.cloud/v1/surah");
+//       setSurahs(response.data.data);
+//     } catch (err) {
+//       console.error("سورہ کی فہرست حاصل کرنے میں مسئلہ پیش آیا۔", err);
+//     }
+//   };
+
+//   const fetchAyahs = async (surahNumber) => {
+//     try {
+//       const translationIds = ["quran-uthmani", ...selectedTranslations].join(
+//         ","
+//       );
+
+//       const response = await axios.get(
+//         `http://api.alquran.cloud/v1/surah/${surahNumber}/editions/${translationIds}`
+//       );
+
+//       const arabicAyahs = response.data.data[0].ayahs;
+//       const translationsData = response.data.data.slice(1);
+
+//       const combinedAyahs = arabicAyahs.map((ayah, index) => {
+//         let translationsMap = {};
+//         translationsData.forEach((t) => {
+//           translationsMap[t.edition.identifier] = t.ayahs[index]?.text || "";
+//         });
+//         return {
+//           arabic: ayah.text,
+//           translations: translationsMap,
+//         };
+//       });
+
+//       setAyahs(combinedAyahs);
+//       setSelectedSurah(surahNumber);
+//       setCurrentPage(1);
+//     } catch (err) {
+//       console.error("آیات حاصل کرنے میں مسئلہ پیش آیا۔", err);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchSurahs();
+//   }, []);
+
+//   const handleNextPage = () => {
+//     setCurrentPage((prev) => prev + 1);
+//   };
+
+//   const handlePreviousPage = () => {
+//     setCurrentPage((prev) => Math.max(prev - 1, 1));
+//   };
+
+//   const indexOfLastAyah = currentPage * ayahsPerPage;
+//   const indexOfFirstAyah = indexOfLastAyah - ayahsPerPage;
+//   const currentAyahs = ayahs.slice(indexOfFirstAyah, indexOfLastAyah);
+
+//   return (
+//     <div className="container">
+//       <h1 className="title">The Holy Quran</h1>
+
+//       {!selectedSurah ? (
+//         <div className="surah-grid">
+//           {surahs.map((surah) => (
+//             <div
+//               key={surah.number}
+//               className="surah-card"
+//               onClick={() => fetchAyahs(surah.number)}
+//             >
+//               <div className="card-header">
+//                 <span className="surah-number">{surah.number}</span>
+//                 <h3>{surah.englishName}</h3>
+//                 <p>{surah.englishNameTranslation}</p>
+//                 <p>{surah.numberOfAyahs} آیات</p>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       ) : (
+//         <div className="surah-detail">
+//           <button onClick={() => setSelectedSurah(null)}>واپس جائیں</button>
+//           <h2>
+//             Surah: {surahs.find((s) => s.number === selectedSurah)?.englishName}
+//           </h2>
+
+//           <div className="translation-options">
+//             {translations.map((t) => (
+//               <label key={t.id} className="custom-checkbox">
+//                 <input
+//                   type="checkbox"
+//                   value={t.id}
+//                   checked={selectedTranslations.includes(t.id)}
+//                   onChange={() =>
+//                     setSelectedTranslations((prev) =>
+//                       prev.includes(t.id)
+//                         ? prev.filter((item) => item !== t.id)
+//                         : [...prev, t.id]
+//                     )
+//                   }
+//                 />
+//                 <span className="checkmark"></span>
+//                 {t.label}
+//               </label>
+//             ))}
+//           </div>
+
+//           <div className="ayah-list">
+//             {currentAyahs.map((ayah, index) => (
+//               <div key={index} className="ayah">
+//                 <div className="arabic">{ayah.arabic}</div>
+//                 {selectedTranslations.map((id) => (
+//                   <div key={id} className="urdu">
+//                     {ayah.translations[id]}
+//                   </div>
+//                 ))}
+//               </div>
+//             ))}
+//           </div>
+
+//           <div className="pagination">
+//             <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+//               پچھلا صفحہ
+//             </button>
+//             <button
+//               onClick={handleNextPage}
+//               disabled={indexOfLastAyah >= ayahs.length}
+//             >
+//               اگلا صفحہ
+//             </button>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default QuranAyahViewer;
+
+// import React, { useState, useEffect } from "react";
+// import axios from "axios";
+// import "./App.css";
+
+// const QuranAyahViewer = () => {
+//   const [surahs, setSurahs] = useState([]);
+//   const [selectedSurah, setSelectedSurah] = useState(null);
+//   const [ayahs, setAyahs] = useState([]);
+//   const [currentPage, setCurrentPage] = useState(1);
+//   const [ayahsPerPage] = useState(5);
+
+//   const fetchSurahs = async () => {
+//     try {
+//       const response = await axios.get("http://api.alquran.cloud/v1/surah");
+//       setSurahs(response.data.data);
+//     } catch (err) {
+//       console.error("سورہ کی فہرست حاصل کرنے میں مسئلہ پیش آیا۔", err);
+//     }
+//   };
+
+//   const fetchAyahs = async (surahNumber) => {
+//     try {
+//       const translationId = "ur.jalandhry";
+//       const response = await axios.get(
+//         `http://api.alquran.cloud/v1/surah/${surahNumber}/editions/quran-uthmani,${translationId}`
+//       );
+//       const arabicAyahs = response.data.data[0].ayahs;
+//       const urduAyahs = response.data.data[1].ayahs;
+
+//       const combinedAyahs = arabicAyahs.map((ayah, index) => ({
+//         arabic: ayah.text,
+//         urdu: urduAyahs[index]?.text || "",
+//       }));
+
+//       setAyahs(combinedAyahs);
+//       setSelectedSurah(surahNumber);
+//       setCurrentPage(1);
+//     } catch (err) {
+//       console.error("آیات حاصل کرنے میں مسئلہ پیش آیا۔", err);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchSurahs();
+//   }, []);
+
+//   const handleNextPage = () => {
+//     setCurrentPage((prev) => prev + 1);
+//   };
+
+//   const handlePreviousPage = () => {
+//     setCurrentPage((prev) => Math.max(prev - 1, 1));
+//   };
+
+//   const indexOfLastAyah = currentPage * ayahsPerPage;
+//   const indexOfFirstAyah = indexOfLastAyah - ayahsPerPage;
+//   const currentAyahs = ayahs.slice(indexOfFirstAyah, indexOfLastAyah);
+
+//   return (
+//     <div className="container">
+//       <h1 className="title">The Holy Quran</h1>
+
+//       {!selectedSurah ? (
+//         <div className="surah-grid">
+//           {surahs.map((surah) => (
+//             <div
+//               key={surah.number}
+//               className="surah-card"
+//               onClick={() => fetchAyahs(surah.number)}
+//             >
+//               <div className="card-header">
+//                 <span className="surah-number">{surah.number}</span>
+//                 <h3>{surah.englishName}</h3>
+//                 <p>{surah.englishNameTranslation}</p>
+//                 <p>{surah.numberOfAyahs} آیات</p>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       ) : (
+//         <div className="surah-detail">
+//           <button onClick={() => setSelectedSurah(null)}>واپس جائیں</button>
+//           <h2>
+//             Surah: {surahs.find((s) => s.number === selectedSurah)?.englishName}
+//           </h2>
+
+//           <div className="ayah-list">
+//             {currentAyahs.map((ayah, index) => (
+//               <div key={index} className="ayah">
+//                 <div className="arabic">{ayah.arabic}</div>
+//                 <div className="urdu">{ayah.urdu}</div>
+//               </div>
+//             ))}
+//           </div>
+
+//           <div className="pagination">
+//             <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+//               پچھلا صفحہ
+//             </button>
+//             <button
+//               onClick={handleNextPage}
+//               disabled={indexOfLastAyah >= ayahs.length}
+//             >
+//               اگلا صفحہ
+//             </button>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default QuranAyahViewer;
+
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+// import "./App.css";
 
 const QuranAyahViewer = () => {
   const [surahs, setSurahs] = useState([]);
   const [selectedSurah, setSelectedSurah] = useState(null);
-  const [selectedAyahNumber, setSelectedAyahNumber] = useState(null);
-  const [arabicAyah, setArabicAyah] = useState(null);
-  const [ayahTranslation, setAyahTranslation] = useState(null);
-  const [error, setError] = useState(null);
+  const [ayahs, setAyahs] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [ayahsPerPage] = useState(3);
 
-  // Fetch all Surah names
   const fetchSurahs = async () => {
     try {
       const response = await axios.get("http://api.alquran.cloud/v1/surah");
       setSurahs(response.data.data);
     } catch (err) {
-      setError("Error fetching Surah list. Please try again.");
+      console.error("Error fetching surah list", err);
     }
   };
 
-  // Fetch Ayah (Arabic) and Translation
-  const fetchAyahDetails = async (surahNumber, ayahNumber) => {
+  const fetchAyahs = async (surahNumber) => {
     try {
-      const arabicResponse = await axios.get(
-        `http://api.alquran.cloud/v1/ayah/${surahNumber}:${ayahNumber}/ar.alafasy`
+      const translationId = "ur.jalandhry";
+      const response = await axios.get(
+        `http://api.alquran.cloud/v1/surah/${surahNumber}/editions/quran-uthmani,${translationId}`
       );
-      const translationResponse = await axios.get(
-        `https://api.alquran.cloud/v1/ayah/${surahNumber}:${ayahNumber}/ur.junagarhi`
-      );
-      setArabicAyah(arabicResponse.data.data.text);
-      setAyahTranslation(translationResponse.data.data.text);
-      setError(null);
+      const arabicAyahs = response.data.data[0].ayahs;
+      const urduAyahs = response.data.data[1].ayahs;
+
+      const combinedAyahs = arabicAyahs.map((ayah, index) => ({
+        arabic: ayah.text,
+        urdu: urduAyahs[index]?.text || "",
+      }));
+
+      setAyahs(combinedAyahs);
+      setSelectedSurah(surahNumber);
+      setCurrentPage(1);
     } catch (err) {
-      setError("Error fetching Ayah or Translation. Please try again.");
+      console.error("Error fetching ayahs", err);
     }
   };
 
@@ -40,66 +318,66 @@ const QuranAyahViewer = () => {
     fetchSurahs();
   }, []);
 
-  const handleSurahChange = (e) => {
-    const surahNumber = e.target.value;
-    setSelectedSurah(surahNumber);
-    setSelectedAyahNumber(null);
-    setArabicAyah(null);
-    setAyahTranslation(null);
+  const handleNextPage = () => {
+    setCurrentPage((prev) => prev + 1);
   };
 
-  const handleAyahChange = (e) => {
-    const ayahNumber = e.target.value;
-    setSelectedAyahNumber(ayahNumber);
-    fetchAyahDetails(selectedSurah, ayahNumber);
+  const handlePreviousPage = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
+
+  const indexOfLastAyah = currentPage * ayahsPerPage;
+  const indexOfFirstAyah = indexOfLastAyah - ayahsPerPage;
+  const currentAyahs = ayahs.slice(indexOfFirstAyah, indexOfLastAyah);
 
   return (
-    <div className="ayah-container">
-      <h1 className="title">QuranAyahViewer</h1>
+    <div className="container">
+      <h1 className="title">The Holy Quran</h1>
 
-      {/* Surah Selector */}
-      <div className="input-group">
-        <select onChange={handleSurahChange} className="ayah-input">
-          <option value="">Chose a Surah</option>
+      {!selectedSurah ? (
+        <div className="surah-grid">
           {surahs.map((surah) => (
-            <option key={surah.number} value={surah.number}>
-              {surah.englishName} ({surah.numberOfAyahs} آیات)
-            </option>
+            <div
+              key={surah.number}
+              className="surah-card"
+              onClick={() => fetchAyahs(surah.number)}
+            >
+              <div className="card-header">
+                <span className="surah-number">{surah.number}</span>
+                <h3>{surah.englishName}</h3>
+                <p>{surah.englishNameTranslation}</p>
+                <p>{surah.numberOfAyahs} آیات</p>
+              </div>
+            </div>
           ))}
-        </select>
-
-        {/* Ayah Selector */}
-        {selectedSurah && (
-          <select onChange={handleAyahChange} className="ayah-input">
-            <option value="">Chose ayah</option>
-            {Array.from(
-              {
-                length:
-                  surahs.find((s) => s.number === +selectedSurah)
-                    ?.numberOfAyahs || 0,
-              },
-              (_, i) => (
-                <option key={i + 1} value={i + 1}>
-                  آیت {i + 1}
-                </option>
-              )
-            )}
-          </select>
-        )}
-      </div>
-
-      {error && <p className="error">{error}</p>}
-
-      {/* Display Ayah Details */}
-      {arabicAyah && (
-        <div className="ayah-card">
-          <h2 className="surah-name">
-            Surah:{" "}
-            {surahs.find((s) => s.number === +selectedSurah)?.englishName}
+        </div>
+      ) : (
+        <div className="surah-detail">
+          <button onClick={() => setSelectedSurah(null)}>واپس جائیں</button>
+          <h2>
+            Surah: {surahs.find((s) => s.number === selectedSurah)?.englishName}
           </h2>
-          <p className="ayah-text">{arabicAyah}</p>
-          <p className="ayah-translation">ترجمہ: {ayahTranslation}</p>
+
+          <div className="ayah-list">
+            {currentAyahs.map((ayah, index) => (
+              <div key={index} className="ayah">
+                <div className="arabic">{ayah.arabic}</div>
+                <div className="urdu">{ayah.urdu}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="pagination">
+            <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+              پچھلا صفحہ
+            </button>
+            <button
+              onClick={handleNextPage}
+              disabled={indexOfLastAyah >= ayahs.length}
+            >
+              اگلا صفحہ
+            </button>
+          </div>
         </div>
       )}
     </div>
